@@ -348,10 +348,12 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 #define Z_MAX_LENGTH (Z_MAX_POS - Z_MIN_POS)
 //============================= Bed Auto Leveling ===========================
 
-//#define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
+#define ENABLE_AUTO_BED_LEVELING // Delete the comment to enable (remove // at the start of the line)
 #define Z_PROBE_REPEATABILITY_TEST  // If not commented out, Z-Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 
 #ifdef ENABLE_AUTO_BED_LEVELING
+
+  #define PROBE_EDGE_OFFSET 5  //Offset inboard from the edge of print area to the line that the probe will measure along (Minumum of 5 is recomended)
 
 // There are 2 different ways to pick the X and Y locations to probe:
 
@@ -365,18 +367,19 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 //    Probe 3 arbitrary points on the bed (that aren't colinear)
 //    You must specify the X & Y coordinates of all 3 points
 
-  #define AUTO_BED_LEVELING_GRID
+  //#define AUTO_BED_LEVELING_GRID
   // with AUTO_BED_LEVELING_GRID, the bed is sampled in a
   // AUTO_BED_LEVELING_GRID_POINTSxAUTO_BED_LEVELING_GRID_POINTS grid
   // and least squares solution is calculated
   // Note: this feature occupies 10'206 byte
   #ifdef AUTO_BED_LEVELING_GRID
 
-    // set the rectangle in which to probe
-    #define LEFT_PROBE_BED_POSITION 15
-    #define RIGHT_PROBE_BED_POSITION 170
-    #define BACK_PROBE_BED_POSITION 180
-    #define FRONT_PROBE_BED_POSITION 20
+    // The equasions will automatically determine the optimal probe bed position values 
+    // or values can be manually set for the rectangle in which to probe
+    #define LEFT_PROBE_BED_POSITION ((X_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+    #define RIGHT_PROBE_BED_POSITION (X_MAX_LENGTH - (SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) - X_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+    #define BACK_PROBE_BED_POSITION (Y_MAX_LENGTH - (SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) - Y_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+    #define FRONT_PROBE_BED_POSITION ((Y_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
 
      // set the number of grid points per dimension
      // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
@@ -386,30 +389,32 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
   #else  // not AUTO_BED_LEVELING_GRID
     // with no grid, just probe 3 arbitrary points.  A simple cross-product
     // is used to esimate the plane of the print bed
-
-      #define ABL_PROBE_PT_1_X 15
-      #define ABL_PROBE_PT_1_Y 180
-      #define ABL_PROBE_PT_2_X 15
-      #define ABL_PROBE_PT_2_Y 20
-      #define ABL_PROBE_PT_3_X 170
-      #define ABL_PROBE_PT_3_Y 20
+   
+    // The equasions will automatically determine the optimal points to be probed 
+    // or values can be manually set for the 90 Deg triangle in which to probe 
+      #define ABL_PROBE_PT_1_X ((X_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_1_Y (Y_MAX_LENGTH - (SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) - Y_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_2_X ((X_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_2_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_3_X (X_MAX_LENGTH - (SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) - X_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_3_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
 
   #endif // AUTO_BED_LEVELING_GRID
 
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   // X and Y offsets must be integers
-  #define X_PROBE_OFFSET_FROM_EXTRUDER -25
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER -29
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER -12.35
+  #define X_PROBE_OFFSET_FROM_EXTRUDER 25
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 0
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER 0
 
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
 
-  #define XY_TRAVEL_SPEED 8000         // X and Y axis travel speed between probes, in mm/min
+  #define XY_TRAVEL_SPEED 6000         // X and Y axis travel speed between probes, in mm/min
 
-  #define Z_RAISE_BEFORE_PROBING 15    //How much the extruder will be raised before traveling to the first probing point.
-  #define Z_RAISE_BETWEEN_PROBINGS 5  //How much the extruder will be raised when traveling from between next probing points
+  #define Z_RAISE_BEFORE_PROBING 10    //How much the extruder will be raised before traveling to the first probing point.
+  #define Z_RAISE_BETWEEN_PROBINGS 10  //How much the extruder will be raised when traveling from between next probing points
 
   //#define Z_PROBE_SLED // turn on if you have a z-probe mounted on a sled like those designed by Charles Bell
   //#define SLED_DOCKING_OFFSET 5 // the extra distance the X axis must travel to pickup the sled. 0 should be fine but you can push it further if you'd like.
