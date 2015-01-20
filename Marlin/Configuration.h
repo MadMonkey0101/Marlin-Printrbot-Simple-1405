@@ -43,7 +43,7 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_PRINTRBOARD
+  #define MOTHERBOARD 81
 #endif
 
 // Define this to set a custom name for your generic Mendel,
@@ -328,7 +328,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // ENDSTOP SETTINGS:
 // Sets direction of endstops when homing; 1=MAX, -1=MIN
 #define X_HOME_DIR -1
-#define Y_HOME_DIR -1
+#define Y_HOME_DIR 1
 #define Z_HOME_DIR -1
 
 #define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
@@ -339,7 +339,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define X_MIN_POS 0
 #define Y_MAX_POS 100
 #define Y_MIN_POS 0
-#define Z_MAX_POS 100
+#define Z_MAX_POS 115
 #define Z_MIN_POS 0
 
 #define X_MAX_LENGTH (X_MAX_POS - X_MIN_POS)
@@ -393,7 +393,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
     // or values can be manually set for the 90 Deg triangle in which to probe 
       #define ABL_PROBE_PT_1_X ((X_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
       #define ABL_PROBE_PT_1_Y (Y_MAX_LENGTH - (sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) - Y_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
-      #define ABL_PROBE_PT_2_X ((X_PROBE_OFFSET_FROM_EXTRUDER + sqrt(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_2_X ((X_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
       #define ABL_PROBE_PT_2_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
       #define ABL_PROBE_PT_3_X (X_MAX_LENGTH - (sqrt(pow(X_PROBE_OFFSET_FROM_EXTRUDER,2)) - X_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
       #define ABL_PROBE_PT_3_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
@@ -537,7 +537,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
 //LCD and SD support
-//#define ULTRA_LCD  //general LCD support, also 16x2
+#define ULTRA_LCD  //general LCD support, also 16x2
 //#define DOGLCD  // Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
 #define SDSUPPORT // Enable SD Card Support in Hardware Console
 //#define SDSLOW // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
