@@ -375,10 +375,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
     // The equasions will automatically determine the optimal probe bed position values 
     // or values can be manually set for the rectangle in which to probe
-    #define LEFT_PROBE_BED_POSITION ((X_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
-    #define RIGHT_PROBE_BED_POSITION (X_MAX_LENGTH - (SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) - X_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
-    #define BACK_PROBE_BED_POSITION (Y_MAX_LENGTH - (SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) - Y_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
-    #define FRONT_PROBE_BED_POSITION ((Y_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+    #define LEFT_PROBE_BED_POSITION ((X_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+    #define RIGHT_PROBE_BED_POSITION (X_MAX_LENGTH - (sqrt(pow(X_PROBE_OFFSET_FROM_EXTRUDER,2)) - X_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+    #define BACK_PROBE_BED_POSITION (Y_MAX_LENGTH - (sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) - Y_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+    #define FRONT_PROBE_BED_POSITION ((Y_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
 
      // set the number of grid points per dimension
      // I wouldn't see a reason to go above 3 (=9 probing points on the bed)
@@ -391,12 +391,12 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
    
     // The equasions will automatically determine the optimal points to be probed 
     // or values can be manually set for the 90 Deg triangle in which to probe 
-      #define ABL_PROBE_PT_1_X ((X_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
-      #define ABL_PROBE_PT_1_Y (Y_MAX_LENGTH - (SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) - Y_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
-      #define ABL_PROBE_PT_2_X ((X_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
-      #define ABL_PROBE_PT_2_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
-      #define ABL_PROBE_PT_3_X (X_MAX_LENGTH - (SQRT(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) - X_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
-      #define ABL_PROBE_PT_3_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + SQRT(POW(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_1_X ((X_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_1_Y (Y_MAX_LENGTH - (sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) - Y_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_2_X ((X_PROBE_OFFSET_FROM_EXTRUDER + sqrt(POW(X_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_2_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_3_X (X_MAX_LENGTH - (sqrt(pow(X_PROBE_OFFSET_FROM_EXTRUDER,2)) - X_PROBE_OFFSET_FROM_EXTRUDER + (2 * PROBE_EDGE_OFFSET)) / 2)
+      #define ABL_PROBE_PT_3_Y ((Y_PROBE_OFFSET_FROM_EXTRUDER + sqrt(pow(Y_PROBE_OFFSET_FROM_EXTRUDER,2)) + (2 * PROBE_EDGE_OFFSET)) / 2)
 
   #endif // AUTO_BED_LEVELING_GRID
 
@@ -537,7 +537,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
 //LCD and SD support
-#define ULTRA_LCD  //general LCD support, also 16x2
+//#define ULTRA_LCD  //general LCD support, also 16x2
 //#define DOGLCD  // Support for SPI LCD 128x64 (Controller ST7565R graphic Display Family)
 #define SDSUPPORT // Enable SD Card Support in Hardware Console
 //#define SDSLOW // Use slower SD transfer mode (not normally needed - uncomment if you're getting volume init error)
