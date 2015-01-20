@@ -3048,6 +3048,21 @@ Sigma_Exit:
 
     }break;
     #endif // FWRETRACT
+    
+    #ifdef ENABLE_AUTO_BED_LEVELING 
+	case 212: //M212 - Set probe offset for bed leveling 
+	{ 
+      for(int8_t i=0; i < 3; i++) 
+      { 
+        if(code_seen(axis_codes[i]))
+        { 
+          bed_level_probe_offset[i] = code_value(); 
+        } 
+      } 
+    }break; 
+    #endif 
+
+    
     #if EXTRUDERS > 1
     case 218: // M218 - set hotend offset (in mm), T<extruder_number> X<offset_on_X> Y<offset_on_Y>
     {
